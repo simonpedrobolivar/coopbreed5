@@ -149,22 +149,25 @@ Rcpp::List coopbreed2(int paths, int n_gener, int n_patches, double MutStep,
               double GlobalAvgPhenotype = mean_rcpp(AvgPhenotype);
               NumericVector ProbLocal(n_patches);
               for(int n = 0; n < n_patches; n++){
-                ProbLocal(n) = (1.0 - AvgPhenotype(n)) / ((par_c * GlobalAvgPhenotype) + (1.0 - AvgPhenotype(n)));//check if results is rigth
+                ProbLocal(n) = (1.0 - AvgPhenotype(n)) / ((par_c * GlobalAvgPhenotype)
+                                                            + (1.0 - AvgPhenotype(n)));//check if results is rigth
+                //cout << "problocal: "; cout << ProbLocal(n); cout << ", ";
               }
+
+              //ProbLocal=(1 - AvgPhenotype)/(c * GlobalAvgPhenotype + (1 - AvgPhenotype))
+
               NumericVector BreederSurvival = Sb(AvgPhenotype, par_k);
               NumericMatrix PopnNext(2, n_patches);
 
 
               for(int i = 0; i < n_patches; i++){ // for all patches
-                double X;
-                X = R::runif(0,1);
+                double X = R::runif(0,1);
                 if(X > BreederSurvival(i)){ // Breeder Dies
-                  double Y;
-                  Y = R::runif(0,1);
+                  double Y = R::runif(0,1);
                   int PatchWinner;
                   int Winner;
                   if(Y < ProbLocal(i)){
-                    PatchWinner = i;//Winner Comes from Local Patch
+                    PatchWinner = i; //Winner Comes from Local Patch
                     NumericVector prob1(n_off);// Local Offspring Compete
                     for(int n=0; n < n_off; n++){
                       prob1(n) = 1.0 - OffspringPhenotype(n,PatchWinner);
@@ -234,11 +237,6 @@ Rcpp::List coopbreed2(int paths, int n_gener, int n_patches, double MutStep,
 
 // [[Rcpp::export]]
 NumericMatrix coopbreed(int paths, int n_gener, int n_patches, double MutStep, int n_mates, int n_off, double par_c, double par_k){
-  //cout << paths;
-  //cout << n_gener;
-  //cout << n_patches;
-  //cout << n_mates;
-  //cout << n_off;
 
 
   Progress p(paths * n_gener * n_patches, TRUE);
@@ -343,6 +341,7 @@ NumericMatrix coopbreed(int paths, int n_gener, int n_patches, double MutStep, i
       NumericVector ProbLocal(n_patches);
       for(int n = 0; n < n_patches; n++){
         ProbLocal(n) = (1 - AvgPhenotype(n))/(par_c * GlobalAvgPhenotype + (1 - AvgPhenotype(n))); //check if results is rigth
+        //cout << "probloca: "; cout << ProbLocal(n); cout << ", ";
       }
       NumericVector BreederSurvival = Sb(AvgPhenotype, par_k);
       //cout << "breddersurv: "; cout << BreederSurvival; cout << ", ";
@@ -366,7 +365,7 @@ NumericMatrix coopbreed(int paths, int n_gener, int n_patches, double MutStep, i
             }
             Winner = RcppArmadillo::sample(n_off_v,1,TRUE, prob1)(0);
           }else{
-            PatchWinner = (RcppArmadillo::sample(n_patches_v, 1, TRUE, AvgPhenotype))(0); // Patches Compete
+            PatchWinner = RcppArmadillo::sample(n_patches_v, 1, TRUE, AvgPhenotype)(0); // Patches Compete
             NumericVector prob2(n_off);
             for(int n=0; n < n_off; n++){// Offspring On Winning Patch Compete
               prob2(n) = OffspringPhenotype(n,PatchWinner);
