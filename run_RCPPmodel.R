@@ -7,23 +7,32 @@ library(devtools)
 
 ##### Functions #####
 
-traceplot <- function(results, mean, se){
-  par(mfrow = c(3,3), mar = c(1,1,1,1), oma = c(2,2,2,2))
-  #par(mfrow = c(1,1))
-  plot(1:T, 1-results[[1]][1,], type = "l", ylim = c(0, 1), col = "grey", xaxt = "n",
-       main = names(results)[1], cex.main = 1)
-  for(i in 1:nrow(results[[1]])) lines(1:T, 1-results[[1]][i,], col = "grey")
-  lines(1:T, 1-mean[[1]], col = "red")
-  lines(1:T, 1-mean[[1]] + 1.96 * se[[1]], lty = 2, col = "red")
-  lines(1:T, 1-mean[[1]] - 1.96 * se[[1]], lty = 2, col = "red")
+traceplot <- function(modeloutput, par.mfrow = c(1,1)){
+  par(mfrow = par.mfrow, mar = c(1,1,1,1), oma = c(2,2,2,2))
+  mean_fun <- function(x) apply(x, 2, mean)
+  SE_fun <- function(x) sqrt(apply(x, 2, var)/Paths)
+  results <- modeloutput$results
+  mean = lapply(results, mean_fun)
+  se = lapply(results, SE_fun)
+  pars <- modeloutput$pars
+  plot(1:pars$n_gener[1], 1-results[[1]][1,], type = "l", ylim = c(0, 1), col = "grey", xaxt = "n",
+       main = pars[1,], cex.main = 1, las = 2)
+  for(i in 1:nrow(results[[1]])) lines(1:pars$n_gener[1], 1-results[[1]][i,], col = "grey")
+  lines(1:pars$n_gener[1], 1-mean[[1]], col = "red")
+  lines(1:pars$n_gener[1], 1-mean[[1]] + 1.96 * se[[1]], lty = 2, col = "red")
+  lines(1:pars$n_gener[1], 1-mean[[1]] - 1.96 * se[[1]], lty = 2, col = "red")
+  text(y = 0.8, x = pars$n_gener[1]/2, labels = pars[1,])
 
-  for(i in 2:length(results)){
-    plot(1:T, 1-results[[i]][1,], type = "l", ylim = c(0, 1), col = "grey", xaxt = "n",
-         main = names(results)[i], cex.main = 1)
-    for(j in 1:nrow(results[[1]])) lines(1:T, 1-results[[i]][j,], col = "grey")
-    lines(1:T, 1-mean[[i]], col = "red")
-    lines(1:T, 1-mean[[i]] + 1.96 * se[[i]], lty = 2, col = "red")
-    lines(1:T, 1-mean[[i]] - 1.96 * se[[i]], lty = 2, col = "red")
+  if(length(results) > 1){
+    for(i in 2:length(results)){
+      plot(1:pars$n_gener[i], 1-results[[i]][1,], type = "l", ylim = c(0, 1), col = "grey", xaxt = "n",
+           main = pars[i,], cex.main = 1, las = 2)
+      for(j in 1:nrow(results[[1]])) lines(1:pars$n_gener[i], 1-results[[i]][j,], col = "grey")
+      lines(1:pars$n_gener[i], 1-mean[[i]], col = "red")
+      lines(1:pars$n_gener[i], 1-mean[[i]] + 1.96 * se[[i]], lty = 2, col = "red")
+      lines(1:pars$n_gener[i], 1-mean[[i]] - 1.96 * se[[i]], lty = 2, col = "red")
+      text(y = 0.8, x = pars$n_gener[i]/2, labels = pars[i,])
+    }
   }
 }
 
@@ -70,14 +79,14 @@ plotLeggett <- function(equi, equi_se, par_c, par_k, n_mates){
 #### Parameters ################################################################
 #####################
 
-Paths = 1 # number of Paths to simulate
-T = 3000 # number of generations to simulate
-P = 1000 # number of patches
+Paths = 20 # number of Paths to simulate
+T = 10 # number of generations to simulate
+P = 10 # number of patches
 MutStep = 0.001 # mutation step
-M = seq(1,9,2) # number of mates
-K = 100 # number of offspring
-c = c(0.75, 1, 1.25) # parameter
-k = c(0.5, 1) # parameter
+M = 2 #seq(1,9,2) # number of mates
+K = 10 # number of offspring
+c = 1.5 #c(0.75, 1, 1.25) # parameter
+k = 1 #c(0.5, 1) # parameter
 
 param_combi <- as.data.frame(matrix(0,
                                     nrow = length(M) * length(K) * length(c) * length(k), ncol = 8))
@@ -106,11 +115,6 @@ for(i in 1:length(M)){
 #####################
 #### Run the model ################################################################
 #####################
-system.time({
-  test2 <- coopbreed::coopbreed2(paths = Paths, n_gener =  T, n_patches =  P, MutStep = MutStep, n_mates = M,
-                                 n_off = K, par_c= c, par_k= k)
-})
-# time: 58 sec
 
 # start timing
 ptm <- proc.time()
@@ -128,7 +132,10 @@ test1 <- foreach::foreach(i = 1:nrow(param_combi)) %dopar%{
                        MutStep = param_combi[i,4], n_mates = param_combi[i,5],
                        n_off = param_combi[i,6], par_c= param_combi[i,7], par_k= param_combi[i,8])
 }
-
+i = 1
+coopbreed(paths = param_combi[i,1], n_gener =  param_combi[i,2], n_patches =  param_combi[i,3],
+          MutStep = param_combi[i,4], n_mates = param_combi[i,5],
+          n_off = param_combi[i,6], par_c= param_combi[i,7], par_k= param_combi[i,8])
 
 
 # stop cluster, free memory form workers

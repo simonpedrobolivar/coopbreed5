@@ -32,13 +32,13 @@
                 "column" : 15,
                 "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed/src/coopbreed_rcpp.cpp",
                 "kind" : 6,
-                "line" : 236,
+                "line" : 239,
                 "name" : "coopbreed(int, int, int, double, int, int, double, double)",
                 "parent_name" : "",
                 "usr" : "c:@F@coopbreed#I#I#I#d#I#I#d#d#"
             }
         ],
         "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed/src/coopbreed_rcpp.cpp",
-        "file_last_write" : 1492121281
+        "file_last_write" : 1492611511
     }
 ]
