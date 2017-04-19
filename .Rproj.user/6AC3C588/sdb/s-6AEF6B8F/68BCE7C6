@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "#include <Rcpp.h>\nusing namespace Rcpp;\n\n// This is a simple example of exporting a C++ function to R. You can\n// source this function into an R session using the Rcpp::sourceCpp\n// function (or via the Source button on the editor toolbar). Learn\n// more about Rcpp at:\n//\n//   http://www.rcpp.org/\n//   http://adv-r.had.co.nz/Rcpp.html\n//   http://gallery.rcpp.org/\n//\n\n// [[Rcpp::export]]\nNumericVector timesTwo(NumericVector x) {\n  return 1.0 - x ;\n}\n\n\n// You can include R code blocks in C++ files processed with sourceCpp\n// (useful for testing and development). The R code will be automatically\n// run after the compilation.\n//\n\n/*** R\ntimesTwo(0.54)\n*/\n",
+    "created" : 1492099532272.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2674188304",
+    "id" : "68BCE7C6",
+    "lastKnownWriteTime" : 1492099586,
+    "last_content_update" : 1492099586573,
+    "path" : "~/Schreibtisch/ad.cpp",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "cpp"
+}
