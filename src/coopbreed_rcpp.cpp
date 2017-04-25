@@ -53,7 +53,7 @@ double mean_rcpp(NumericVector x){ // mean function
 NumericMatrix coopbreed(int paths, int n_gener, int n_patches,
                         double MutStep, int n_mates, int n_off,
                         double par_c, double par_k,
-                        modify = FALSE){
+                        bool modify = FALSE){
 
   Progress p(paths * n_gener * n_patches, TRUE);
 
@@ -153,12 +153,12 @@ NumericMatrix coopbreed(int paths, int n_gener, int n_patches,
       for(int i = 0; i < n_patches; i++){ // for all patches
         double X = R::runif(0,1);
         if(X > BreederSurvival(i)){ // Breeder Dies
-
           int PatchWinner;
           int Winner;
 
           if(modify){ // only dispersing non-helpers can become reproducers
-            PatchWinner = RcppArmadillo::sample(n_patches_v, 1, TRUE, AvgPhenotype)(0); // Patches Compete
+            // Patches Compete
+            PatchWinner = RcppArmadillo::sample(n_patches_v, 1, TRUE, AvgPhenotype)(0);
             NumericVector prob2(n_off);
             for(int n=0; n < n_off; n++){ // Offspring On Winning Patch Compete
               prob2(n) = OffspringPhenotype(n,PatchWinner);
