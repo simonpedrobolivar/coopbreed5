@@ -53,7 +53,7 @@ double mean_rcpp(NumericVector x){ // mean function
 NumericMatrix coopbreed(int paths, int n_gener, int n_patches,
                         double MutStep, int n_mates, int n_off,
                         double par_c, double par_k,
-                        bool modify = FALSE){
+                        bool modify){
 
   Progress p(paths * n_gener * n_patches, TRUE);
 
@@ -156,31 +156,32 @@ NumericMatrix coopbreed(int paths, int n_gener, int n_patches,
           int PatchWinner;
           int Winner;
 
-          if(modify){ // only dispersing non-helpers can become reproducers
+          if(modify == TRUE){ // only dispersing non-helpers can become reproducers
             // Patches Compete
             PatchWinner = RcppArmadillo::sample(n_patches_v, 1, TRUE, AvgPhenotype)(0);
             NumericVector prob2(n_off);
-            for(int n=0; n < n_off; n++){ // Offspring On Winning Patch Compete
+            for(int n = 0; n < n_off; n++){ // Offspring On Winning Patch Compete
               prob2(n) = OffspringPhenotype(n,PatchWinner);
             }
-            Winner = RcppArmadillo::sample(n_off_v,1,TRUE, prob2)(0);
+            Winner = RcppArmadillo::sample(n_off_v, 1, TRUE, prob2)(0);
+
 
           }else{ // dispersing non-helpers compete with local helpers
             double Y = R::runif(0,1);
             if(Y < ProbLocal(i)){
-              PatchWinner = i;//Winner Comes from Local Patch
-              NumericVector prob1(n_off);// Local Offspring Compete
-              for(int n=0; n < n_off; n++){
+              PatchWinner = i; //Winner Comes from Local Patch
+              NumericVector prob1(n_off); // Local Offspring Compete
+              for(int n = 0; n < n_off; n++){
                 prob1(n) = 1.0 - OffspringPhenotype(n,PatchWinner);
               }
-              Winner = RcppArmadillo::sample(n_off_v,1,TRUE, prob1)(0);
+              Winner = (RcppArmadillo::sample(n_off_v, 5, TRUE, prob1))(0);
             }else{
               PatchWinner = RcppArmadillo::sample(n_patches_v, 1, TRUE, AvgPhenotype)(0); // Patches Compete
               NumericVector prob2(n_off);
-              for(int n=0; n < n_off; n++){ // Offspring On Winning Patch Compete
+              for(int n = 0; n < n_off; n++){ // Offspring On Winning Patch Compete
                 prob2(n) = OffspringPhenotype(n,PatchWinner);
               }
-              Winner = RcppArmadillo::sample(n_off_v,1,TRUE, prob2)(0);
+              Winner = (RcppArmadillo::sample(n_off_v, 5, TRUE, prob2))(0);
             }
           }
 
