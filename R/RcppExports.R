@@ -9,11 +9,11 @@ mean_rcpp <- function(x) {
     .Call('coopbreed_mean_rcpp', PACKAGE = 'coopbreed', x)
 }
 
-coopbreed2 <- function(paths, n_gener, n_patches, MutStep, n_mates_vec, n_off_vec, par_c_vec, par_k_vec) {
-    .Call('coopbreed_coopbreed2', PACKAGE = 'coopbreed', paths, n_gener, n_patches, MutStep, n_mates_vec, n_off_vec, par_c_vec, par_k_vec)
+coopbreed <- function(paths, n_gener, n_patches, MutStep, n_mates, n_off, par_c, par_k, modify) {
+    .Call('coopbreed_coopbreed', PACKAGE = 'coopbreed', paths, n_gener, n_patches, MutStep, n_mates, n_off, par_c, par_k, modify)
 }
 
-coopbreed <- function(paths, n_gener, n_patches, MutStep, n_mates, n_off, par_c, par_k) {
-    .Call('coopbreed_coopbreed', PACKAGE = 'coopbreed', paths, n_gener, n_patches, MutStep, n_mates, n_off, par_c, par_k)
+coopbreed2 <- function(paths, n_gener, n_patches, MutStep, n_mates_vec, n_off_vec, par_c_vec, par_k_vec) {
+    .Call('coopbreed_coopbreed2', PACKAGE = 'coopbreed', paths, n_gener, n_patches, MutStep, n_mates_vec, n_off_vec, par_c_vec, par_k_vec)
 }
 

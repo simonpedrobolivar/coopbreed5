@@ -29,6 +29,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// coopbreed
+NumericMatrix coopbreed(int paths, int n_gener, int n_patches, double MutStep, int n_mates, int n_off, double par_c, double par_k, bool modify);
+RcppExport SEXP coopbreed_coopbreed(SEXP pathsSEXP, SEXP n_generSEXP, SEXP n_patchesSEXP, SEXP MutStepSEXP, SEXP n_matesSEXP, SEXP n_offSEXP, SEXP par_cSEXP, SEXP par_kSEXP, SEXP modifySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type paths(pathsSEXP);
+    Rcpp::traits::input_parameter< int >::type n_gener(n_generSEXP);
+    Rcpp::traits::input_parameter< int >::type n_patches(n_patchesSEXP);
+    Rcpp::traits::input_parameter< double >::type MutStep(MutStepSEXP);
+    Rcpp::traits::input_parameter< int >::type n_mates(n_matesSEXP);
+    Rcpp::traits::input_parameter< int >::type n_off(n_offSEXP);
+    Rcpp::traits::input_parameter< double >::type par_c(par_cSEXP);
+    Rcpp::traits::input_parameter< double >::type par_k(par_kSEXP);
+    Rcpp::traits::input_parameter< bool >::type modify(modifySEXP);
+    rcpp_result_gen = Rcpp::wrap(coopbreed(paths, n_gener, n_patches, MutStep, n_mates, n_off, par_c, par_k, modify));
+    return rcpp_result_gen;
+END_RCPP
+}
 // coopbreed2
 Rcpp::List coopbreed2(int paths, int n_gener, int n_patches, double MutStep, NumericVector n_mates_vec, NumericVector n_off_vec, NumericVector par_c_vec, NumericVector par_k_vec);
 RcppExport SEXP coopbreed_coopbreed2(SEXP pathsSEXP, SEXP n_generSEXP, SEXP n_patchesSEXP, SEXP MutStepSEXP, SEXP n_mates_vecSEXP, SEXP n_off_vecSEXP, SEXP par_c_vecSEXP, SEXP par_k_vecSEXP) {
@@ -44,24 +63,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type par_c_vec(par_c_vecSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type par_k_vec(par_k_vecSEXP);
     rcpp_result_gen = Rcpp::wrap(coopbreed2(paths, n_gener, n_patches, MutStep, n_mates_vec, n_off_vec, par_c_vec, par_k_vec));
-    return rcpp_result_gen;
-END_RCPP
-}
-// coopbreed
-NumericMatrix coopbreed(int paths, int n_gener, int n_patches, double MutStep, int n_mates, int n_off, double par_c, double par_k);
-RcppExport SEXP coopbreed_coopbreed(SEXP pathsSEXP, SEXP n_generSEXP, SEXP n_patchesSEXP, SEXP MutStepSEXP, SEXP n_matesSEXP, SEXP n_offSEXP, SEXP par_cSEXP, SEXP par_kSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type paths(pathsSEXP);
-    Rcpp::traits::input_parameter< int >::type n_gener(n_generSEXP);
-    Rcpp::traits::input_parameter< int >::type n_patches(n_patchesSEXP);
-    Rcpp::traits::input_parameter< double >::type MutStep(MutStepSEXP);
-    Rcpp::traits::input_parameter< int >::type n_mates(n_matesSEXP);
-    Rcpp::traits::input_parameter< int >::type n_off(n_offSEXP);
-    Rcpp::traits::input_parameter< double >::type par_c(par_cSEXP);
-    Rcpp::traits::input_parameter< double >::type par_k(par_kSEXP);
-    rcpp_result_gen = Rcpp::wrap(coopbreed(paths, n_gener, n_patches, MutStep, n_mates, n_off, par_c, par_k));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -40,5 +40,47 @@
         ],
         "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed/src/coopbreed_rcpp.cpp",
         "file_last_write" : 1492611511
+    },
+    {
+        "definitions" : [
+            {
+                "column" : 15,
+                "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed5/src/coopbreed_rcpp.cpp",
+                "kind" : 6,
+                "line" : 24,
+                "name" : "Sb(NumericVector, double)",
+                "parent_name" : "",
+                "usr" : "c:@F@Sb#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#d#"
+            },
+            {
+                "column" : 8,
+                "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed5/src/coopbreed_rcpp.cpp",
+                "kind" : 6,
+                "line" : 35,
+                "name" : "mean_rcpp(NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@mean_rcpp#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#"
+            },
+            {
+                "column" : 15,
+                "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed5/src/coopbreed_rcpp.cpp",
+                "kind" : 6,
+                "line" : 53,
+                "name" : "coopbreed(int, int, int, double, int, int, double, double, bool)",
+                "parent_name" : "",
+                "usr" : "c:@F@coopbreed#I#I#I#d#I#I#d#d#b#"
+            },
+            {
+                "column" : 12,
+                "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed5/src/coopbreed_rcpp.cpp",
+                "kind" : 6,
+                "line" : 220,
+                "name" : "coopbreed2(int, int, int, double, NumericVector, NumericVector, NumericVector, NumericVector)",
+                "parent_name" : "",
+                "usr" : "c:@F@coopbreed2#I#I#I#d#$@N@Rcpp@C@Vector>#VI14#@N@Rcpp@CT>1#T@PreserveStorage#S0_#S0_#S0_#"
+            }
+        ],
+        "file" : "/home/simon/Dokumente/ST_cooperative_breeding/R_stuff/coopbreed5/src/coopbreed_rcpp.cpp",
+        "file_last_write" : 1493197572
     }
 ]

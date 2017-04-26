@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
-#include <RcppParallel.h>
+
 
 // [[Rcpp::depends(RcppProgress)]]
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -14,7 +14,7 @@
 
 using namespace std;
 using namespace Rcpp;
-using namespace RcppParallel;
+
 
 // function for casting integer to string
 #define SSTR( x ) static_cast< std::ostringstream & >( \
